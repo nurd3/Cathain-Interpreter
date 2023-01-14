@@ -19,6 +19,23 @@ def bitstr(n, size):
     a = a.replace(" ", "0") [::-1]       # replace any remaining spaces with 0s
     return a
 
+def to_str(hex):
+    last_char = ""
+    ret = ""
+    for i in hex:
+        if last_char == "":
+            last_char += i
+        else:
+            x = last_char + i
+            try:
+                y = int(x, base=16)
+                ret += chr(y)
+            except: pass
+            last_char = ""
+    try: int(last_char, base=16)
+    except: last_char = ""
+    return [ret, last_char]
+
 def timeline(tkns, num, label):
     L = bitstr(num, len(tkns))
     i = 0
@@ -128,6 +145,13 @@ def run():
                     ii
                 )
                 nn += 1
+            x = to_str(c["timelines"][n][-1])
+            try: 
+                if prefs.show_result: print(
+                    (" " * (g - len(NN))) + "    result:", repr(x[0]),
+                    (" " * (g - len(NN))) + "\n           ", repr(x[1])
+                )
+            except: pass
             n += 1
     return
 run()
