@@ -108,7 +108,7 @@ def run_ctn(script):
         return {"err": err}
     n = 0
     ret = []
-    while n <= 2 * len(y) + 1:
+    while n < 2 ** len(y):
         ret.append(timeline(y, n, label))
         n += 1
 
@@ -135,21 +135,21 @@ def run():
         for i in c["timelines"]:
             N = f'  {n:0b}'[::-1]
             N = N[:l].replace(" ", "0")[::-1]
-            print("timeline", n)
+            print("timeline", n, "({0})".format(N))
             nn = 0
             g = len(str(len(c["timelines"][n])))
             for ii in c["timelines"][n]:
                 NN = str(nn)
                 print(
                     "  " + (" " * (g - len(NN))) + NN + " ", 
-                    ii
+                    ii.upper()
                 )
                 nn += 1
             x = to_str(c["timelines"][n][-1])
             try: 
                 if prefs.show_result: print(
-                    (" " * (g - len(NN))) + "    result:", repr(x[0]),
-                    (" " * (g - len(NN))) + "\n           ", repr(x[1])
+                    (" " * (g - len(NN))) + "       hex:", "0x" + c["timelines"][n][-1].upper(),
+                    (" " * (g - len(NN))) + "\n    string:", repr(x[0])
                 )
             except: pass
             n += 1
