@@ -4,8 +4,8 @@ import prefs
 
 print("Welcome to the Cathain Interpreter!")
 print("... means a timeline reached the jump limit (default: 1000)")
-print("!!! means a timeline encountered an illegal action,\n    such as trying to jump to a non-existent label\n")
-print("--- denotes the end of a timeline")
+print("!!! means a timeline encountered an illegal action,\n    such as trying to jump to a non-existent label")
+print("--- denotes the end of a timeline\n")
 
 
 # gives us a string of the binary value of a given number
