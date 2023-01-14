@@ -5,7 +5,7 @@ import prefs
 print("Welcome to the Cathain Interpreter!")
 print("... means a timeline reached the jump limit (default: 1000)")
 print("!!! means a timeline encountered an illegal action,\n    such as trying to jump to a non-existent label\n")
-
+print("--- denotes the end of a timeline")
 
 
 # gives us a string of the binary value of a given number
@@ -89,7 +89,7 @@ def run_ctn(script):
             if i in label:
                 debug.error("label declared twice: '{0}'".format(i))
                 err += 1
-            label[i[1:]] = x - 1
+            label[i[1:]] = x
             y.append(["LABEL"])
         elif i.startswith("@"):
             y.append(["GOTO", i[1:]])
@@ -106,6 +106,7 @@ def run_ctn(script):
         x += 1
     if err > 0:
         return {"err": err}
+    debug.log(label)
     n = 0
     ret = []
     while n < 2 ** len(y):
@@ -145,8 +146,9 @@ def run():
                     ii.upper()
                 )
                 nn += 1
-            x = to_str(c["timelines"][n][-1])
+            print("     ---")
             try: 
+                x = to_str(c["timelines"][n][-1])
                 if prefs.show_result: print(
                     (" " * (g - len(NN))) + "       hex:", "0x" + c["timelines"][n][-1].upper(),
                     (" " * (g - len(NN))) + "\n    string:", repr(x[0])
